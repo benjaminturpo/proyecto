@@ -5,7 +5,7 @@
   angular
     .module('tsl', ['ngRoute','tsl.controllers','tsl.directives','tsl.templates','tsl.services', 'tsl.filters',
                     'ui.bootstrap','ngAnimate','ngTouch','ui.select','ngSanitize', 'oitozero.ngSweetAlert','chart.js',
-                    'datatables','datatables.bootstrap','angularMoment','toastr','io-barcode','angular-ladda'
+                    'datatables','datatables.bootstrap','angularMoment','toastr','io-barcode','angular-ladda','rzModule'
 
       ])
     .config(config)

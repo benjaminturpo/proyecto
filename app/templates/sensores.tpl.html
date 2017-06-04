@@ -1,0 +1,86 @@
+<div class="container">
+
+		<div class="row">
+		<div class="col-md-4">
+			<div class="shadow-z-0 admin-content-form">
+		<h3 class="dm-h3 "> <span class="flaticon-thermometer"></span> Sensor de Temperatura</h3>
+		<label style="border-bottom: 1px solid #f1f1f1; padding-bottom: 5px; margin-bottom: 10px">Setear temperaturas</label>
+		<rzslider rz-slider-model="temp.minValue"
+          rz-slider-high="temp.maxValue"
+          rz-slider-options="temp.options" ></rzslider>
+          <hr>
+          <ul>
+          	<li>
+          		 Temperatura máxima permitida: <strong>{{temp.maxValue}}°C</strong>
+          	</li> 
+          	<li>
+          		 Temperatura mínima permitida: <strong>{{temp.minValue}}°C</strong>
+          	</li>
+          </ul>
+       <hr>
+<button class="btn btn-info btn-block">Guardar</button>
+
+		</div>
+		</div>
+			<div class="col-md-4">
+			<div class="shadow-z-0 admin-content-form">
+		<h3 class="dm-h3 "><span class="flaticon-humidity"></span> Sensor de Humedad</h3>
+		<label style="border-bottom: 1px solid #f1f1f1; padding-bottom: 5px; margin-bottom: 10px">Setear Humedad</label>
+		<rzslider rz-slider-model="humedad.minValue"
+          rz-slider-high="humedad.maxValue"
+          rz-slider-options="humedad.options" ></rzslider>
+          <hr>
+          <ul>
+          	<li>
+          		 Humedad máxima permitida: <strong>{{humedad.maxValue}}%</strong>
+          	</li> 
+          	<li>
+          		 Humedad mínima permitida: <strong>{{humedad.minValue}}%</strong>
+          	</li>
+          </ul>
+         <hr>
+         <label style="border-bottom: 1px solid #f1f1f1; padding-bottom: 5px; margin-bottom: 10px">Alertas</label>
+          <div class="checkbox">
+	<label>
+		<input type="checkbox" name="optionsCheckboxes">
+		Unchecked
+	</label>
+</div>
+       <hr>
+<button class="btn btn-danger btn-block" style="background: #e91e63">Guardar</button>
+
+		</div>
+		</div>
+			<div class="col-md-4">
+			<div class="shadow-z-0 admin-content-form">
+		<h3 class="dm-h3 "><span class="flaticon-co2-sign"></span> Sensor de CO2</h3>
+		<label style="border-bottom: 1px solid #f1f1f1; padding-bottom: 5px; margin-bottom: 10px">Setear CO2</label>
+		<rzslider rz-slider-model="co2.minValue"
+          rz-slider-high="co2.maxValue"
+          rz-slider-options="co2.options" ></rzslider>
+          <hr>
+          <ul>
+          	<li>
+          		 CO2 máximo permitido: <strong>{{co2.maxValue}}%</strong>
+          	</li> 
+          	<li>
+          		 CO2 mínimo permitido: <strong>{{co2.minValue}}%</strong>
+          	</li>
+          </ul>
+       <hr>
+<button class="btn btn-danger btn-block" style="background: #cddc39">Guardar</button>
+
+		</div>
+		</div>
+	</div>
+
+		<div class="row">
+		<div class="col-md-12">
+			<hr>
+			<div class="shadow-z-0 admin-content-form">
+		<h3 class="dm-h3 "><span class="flaticon-circuit-board-1"></span> Verificar conexión con arduino</h3>
+		</div>
+	
+		</div>
+	</div>
+</div>

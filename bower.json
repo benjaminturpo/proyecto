@@ -23,6 +23,7 @@
     "jquery": "2.0.0",
     "jquery-1.9.1": "http://code.jquery.com/jquery-1.9.1.js",
     "angular-io-barcode": "^1.0.4",
-    "angular-chart.js": "^1.1.1"
+    "angular-chart.js": "^1.1.1",
+    "angularjs-slider": "^6.2.2"
   }
 }
