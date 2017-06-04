@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es-ES" ng-app="tsl" >
+  <head>
+  <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+   
+    <title>Sistema de monitorización y control</title>
+    <meta view-head name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Coloca favicon.ico y apple-touch-icon(s) en el directorio raíz -->
+     <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+   
+    <!-- build:css css/style.min.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="lib/components-font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="lib/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="lib/sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="lib/angular-datatables/dist/css/angular-datatables.css" />
+    <link rel="stylesheet" href="lib/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="lib/ladda/dist/ladda.min.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+   
+   
+   
+   
+   
+    <link rel="stylesheet" href="/stylesheets/amaterial.css">
+   
+   
+   
+   
+   
+    <link rel="stylesheet" href="/stylesheets/fonts.css">
+   
+   
+   
+   
+   
+    <link rel="stylesheet" href="/stylesheets/login.css">
+   
+   
+   
+   
+   
+    <link rel="stylesheet" href="/stylesheets/main.css">
+   
+   
+   
+   
+   
+    <link rel="stylesheet" href="/stylesheets/sidebar.css">
+   
+   
+   
+   
+   
+    <link rel="stylesheet" href="/stylesheets/step-menu.css">
+   
+   
+   
+   
+   
+    <!-- endinject -->
+   
+    <!-- endbuild -->    
+
+       <!--[if lt IE 8]>
+ <p class="browsehappy">
+ Estás usando un navegador <strong>desactualizado</s
+trong>.
+ Por favor <a href="http://browsehappy.com/">actuali
+za tu navegador</a>
+ Para mejorar la experiencia..
+III. Anatomía de una aplicación AngularJS.
+3.1 HTML5Boilerplate
+ </p> 
+ <![endif]-->
+ 
+  <body > 
+    <div ng-controller="MenuCtrl"  >
+ 
+          <div ng-include="template.admin" scope="" onload="" ng-show="menuToggle"></div>
+      
+  </div>
+  <div ng-view></div>
+ 
+ 
+  
+ 
+    <!-- build:js js/vendor.min.js -->
+    <!-- bower:js -->
+    <script src="lib/jquery/jquery.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="lib/arrive/src/arrive.js"></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="lib/angular-touch/angular-touch.js"></script>
+    <script src="lib/angular-ui-select/dist/select.js"></script>
+    <script src="lib/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="lib/ngSweetAlert/SweetAlert.js"></script>
+    <script src="lib/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="lib/angular-datatables/dist/angular-datatables.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/colreorder/angular-datatables.colreorder.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/colvis/angular-datatables.colvis.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.js"></script>
+    <script src="lib/angular-datatables/dist/plugins/select/angular-datatables.select.js"></script>
+    <script src="lib/moment/moment.js"></script>
+    <script src="lib/angular-moment/angular-moment.js"></script>
+    <script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="lib/spin.js/spin.js"></script>
+    <script src="lib/ladda/dist/ladda.min.js"></script>
+    <script src="lib/angular-ladda/dist/angular-ladda.min.js"></script>
+    <script src="lib/angular-animate/angular-animate.js"></script>
+    <script src="lib/jquery-1.9.1/index.js"></script>
+    <script src="lib/angular-io-barcode/build/angular-io-barcode.js"></script>
+    <script src="lib/chart.js/dist/Chart.js"></script>
+    <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js js/app.min.js -->
+    <!-- inject:js -->
+    <script src="/scripts/controllers.js"></script>
+    <script src="/scripts/controllers/UserCtrl.js"></script>
+    <script src="/scripts/controllers/SidebarCtrl.js"></script>
+    <script src="/scripts/controllers/SensoresCtrl.js"></script>
+    <script src="/scripts/controllers/RegistrosCtrl.js"></script>
+    <script src="/scripts/controllers/MenuCtrl.js"></script>
+    <script src="/scripts/controllers/LoginCtrl.js"></script>
+    <script src="/scripts/controllers/LecturasCtrl.js"></script>
+    <script src="/scripts/templates.js"></script>
+    <script src="/scripts/services.js"></script>
+    <script src="/scripts/printer.js"></script>
+    <script src="/scripts/nouislider.min.js"></script>
+    <script src="/scripts/material.min.js"></script>
+    <script src="/scripts/filters.js"></script>
+    <script src="/scripts/es.js"></script>
+    <script src="/scripts/directives.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/angular-locale_es-ar.js"></script>
+    <!-- endinject --> 
+    <!-- endbuild -->   
+    
+  </body>
+</html>

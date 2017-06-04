@@ -1,0 +1,43 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+
+		<div class="shadow-z-0 admin-content-form">
+		<div class="row">
+			<div class="col-md-8">
+			<h3 class="dm-h3"><span class="fa fa-bar-chart"></span> Lecturas correspondiente al dia: <strong>{{date  | amDateFormat:'LL'}}</strong> </h3>
+							<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"  chart-dataset-override="datasetOverride"  chart-colors='colors' chart-click="onClick">
+</canvas>
+			</div>
+			<div class="col-md-4">
+			<h3 class="dm-h3"><i class="fa fa-info-circle" aria-hidden="true"></i> Leyenda </h3>
+
+			<ul class="list-unstyled">
+				<li><span class="fa fa-stop cubo-tem"></span> Temperatura</li>
+				<li><span class="fa fa-stop cubo-hum"></span> Humedad</li>
+				<li><span class="fa fa-stop cubo-co2"></span> Nivel de CO2</li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<h3 class="dm-h3"><i class="fa fa-list" aria-hidden="true"></i> Configuraciones </h3>
+
+			<ul class="list-unstyled">
+				
+				<li><strong>Intervalo de refresco:</strong> {{intervalo}} ms</li>
+				<li><strong>Temperatura máxima permitida:</strong> {{intervalo}} ms</li>
+				<li><strong>Temperatura mínima permitida:</strong> {{intervalo}} ms</li>
+				<li><strong>Humeda máxima permitida:</strong> {{intervalo}} ms</li>
+				<li><strong>Humeda mínima permitida:</strong> {{intervalo}} ms</li>
+				<li><strong>Nivel de CO2 máximo permitido:</strong> {{intervalo}} ms</li>
+				<li><strong>Nivel de CO2 mínimo permitido:</strong> {{intervalo}} ms</li>
+				
+			</ul>
+			</div>
+		</div>
+			
+</canvas>
+</div>
+		</div>				
+	</div>
+</div>

@@ -1,0 +1,190 @@
+
+<style type="text/css" media="screen">
+  .modal .modal-header .close {
+    color: #4A148C;
+    font-size: 4vh;
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+</style>
+      <div class="content_capa" ng-if="vm.datos.length" >
+     
+     <div class="modal-header">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" style="line-height: 1.2;text-align: center;">IMPRIMIR ABONO</h3>
+      </div>
+      <div class="modal-body" >
+
+       
+    
+        <form   method="post" ng-submit="imprimir(vm.datos[0],vm.modal)" >
+           <ul class="list-unstyled col-md-12" >
+             <li>DNI: <strong>{{vm.datos[0].dni}}</strong></li>
+             <li>Nombre: <strong>{{vm.datos[0].nombre}}</strong></li>
+             <li>Tipo: <strong>{{vm.datos[0].categoria}}</strong></li>
+             <li>Viajes: <strong>{{vm.datos[0].viajes}}</strong></li>
+             <li>Recorrido: <strong>{{vm.datos[0].ruta}}</strong></li>
+           </ul>
+           <div class="form-group col-md-6">
+           <label for="">Cantidad de viajes</label>
+              <select ng-model="vm.datos[0].viajes" ng-options="obj.id as obj.Nombre for obj in viajes track by obj.id" class="form-control" required>
+          <option value="">Seleccione</option>
+        </select>
+         <!--  <select name="" ng-model="vm.datos[0].viajes"  class="form-control" required>
+             <option value="" selected>Seleccione</option>
+             <option value="44" >44 viajes</option>
+             <option value="22">22 viajes</option>
+             <option value="60">60 viajes</option>
+             
+           </select> -->
+           </div>
+            <div class="form-group col-md-6">
+           <label for="">Recorrido</label>
+              <select ng-model="vm.datos[0].ruta" ng-options="obj.Nombre for obj in rutas track by obj.id" class="form-control" required>
+          <option value="">Seleccione</option>
+        </select>
+         <!--  <select name="" ng-model="afterUsuario.viajes"  class="form-control" required>
+             <option value="" selected>Seleccione</option>
+             <option value="44" >44 viajes</option>
+             <option value="22">22 viajes</option>
+             <option value="60">60 viajes</option>
+             
+           </select> -->
+           </div>
+
+           <button ladda="cargador" class="btn btn-info pull-right ladda-button" data-style="expand-left" type="submit">IMPRIMIR</button>
+          
+        </form>
+
+         <button class="btn btn-default" ng-click="$close()" >Cancelar</button>
+       
+      </div>
+  
+  </div>
+
+  <!-- si el dni no tiene vm.usuario -->
+
+      <div class="content_capa" ng-show="!vm.datos.length && !clienteNew" >
+     
+     <div class="modal-header">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" style="line-height: 1.2;text-align: center;">El DNI <span style="color: red">#{{vm.dni}}</span> no pertenece a un cliente activo </h3>
+      </div>
+     
+       
+   
+      <div class="modal-footer">
+      <hr>
+        <button class="btn btn-info" ng-click="clienteNew = 1" ng-show="!clienteNew">Agregar Cliente</button>
+        <button class="btn btn-default" ng-click="$close()" ng-show="!clienteNew">Regresar</button>
+      </div>
+  </div>
+
+  <!-- nuevo -->
+
+  <div class="content_capa" ng-show="(!vm.datos.length && clienteNew && beforeAddUser)"   ng-init="vm.usuario.DNI = vm.dni">
+     
+     <div class="modal-header">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" style="line-height: 1.2;text-align: center;">AGREGAR CLIENTE</h3>
+      </div>
+      <div class="modal-body" >
+        <form  method="POST" name="newUser" ng-submit="agregarCliente(vm.usuario)" >
+         <div class="form-group col-md-6">
+        <label for="direccion-nombre">DNI <small>(sin puntos)</small></label>
+        <input type="text" name="dni" ng-model="vm.usuario.DNI" ng-value="vm.dni" minlength="8" class="form-control" required>
+      </div>
+          <div class="form-group col-md-6">
+        <label for="direccion-nombre">Categoría</label>
+        <select ng-model="vm.usuario.fkCategoria" ng-options="obj.id as obj.Nombre for obj in categorias track by obj.id" class="form-control" required>
+          <option value="">Seleccione</option>
+        </select>
+       <!-- {{ vm.usuario.fkCategoria}} -->
+   <!--      <select class="form-control" ng-model="vm.usuario.fkCategoria" required>
+          <option value="">Seleccione</option>
+          <option ng-repeat="cat in categorias" value="cat.id">{{cat.Nombre}}</option>
+       
+          
+        </select> -->
+      </div>
+      <div class="form-group col-md-6">
+        <label for="direccion-nombre">Apellido</label>
+        <input type="text" name="apellido" ng-model="vm.usuario.Apellido"  class="form-control" required autocomplete="off">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="direccion-nombre">Nombres</label>
+        <input type="text" name="nombre" ng-model="vm.usuario.Nombre"  class="form-control" required autocomplete="off">
+      </div>
+      <div class="form-group col-md-7">
+        <label for="direccion-nombre">Telefono</label>
+        <input type="text" name="telefono" ng-model="vm.usuario.Telefono"  class="form-control"  autocomplete="off">
+      </div>
+      
+      <div class="form-group col-md-12">
+        <label for="direccion-nombre">Email</label>
+        <input type="email" name="correo" ng-model="vm.usuario.Mail"  class="form-control"  autocomplete="off">
+      </div>
+        <div class="form-group col-md-12">
+        <label for="direccion-nombre">Dirección</label>
+        <input type="text" name="direccion" ng-model="vm.usuario.Direccion"  class="form-control"  autocomplete="off">
+      </div>
+
+
+      
+      <div class="clearfix col-md-12">
+        <br>
+        <button class="btn btn-default pull-right"  type="button" ng-click="$close()">Cancelar</button>
+        <button class="btn btn-info pull-right" type="submit">Agregar cliente</button>
+      </div>
+
+           
+        </form>
+        
+       
+      </div>
+      <div class="modal-footer">
+<!--         <button class="btn btn-info" ng-click="clienteNew = true" >Agregar Cliente</button>
+        <button class="btn btn-default" ng-click="$close()" >Regresar</button> -->
+      </div>
+  </div>
+
+  <!-- impirmir -->
+
+  <div class="content_capa" ng-if="!beforeAddUser">
+     
+     <div class="modal-header">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" style="line-height: 1.2;text-align: center;">IMPRIMIR ABONO</h3>
+      </div>
+      <div class="modal-body" >
+
+        <form   method="post" ng-submit="imprimir(afterUsuario,vm.modal)" >
+           <ul class="list-unstyled col-md-12" >
+             <li>DNI: <strong>{{afterUsuario.dni}}</strong></li>
+             <li>Nombre: <strong>{{afterUsuario.nombre}}</strong></li>
+             <li>Tipo: <strong>{{afterUsuario.categoria}}</strong></li>
+             <li>Viajes: <strong>{{afterUsuario.viajes}}</strong></li>
+             <li>Recorrido: <strong>{{afterUsuario.ruta}}</strong></li>
+           </ul>
+           <div class="form-group col-md-6">
+           <label for="">Cantidad de viajes</label>
+              <select ng-model="afterUsuario.viajes" ng-options="obj.id as obj.Nombre for obj in viajes track by obj.id" class="form-control" required>
+          <option value="">Seleccione</option>
+        </select>
+   
+           </div>
+            <div class="form-group col-md-6">
+           <label for="">Recorrido</label>
+              <select ng-model="afterUsuario.ruta" ng-options="obj.id as obj.Nombre for obj in rutas track by obj.id" class="form-control" required>
+          <option value="">Seleccione</option>
+        </select>
+
+           </div>
+
+           <button ladda="cargador" class="btn btn-info pull-right ladda-button" data-style="expand-left" type="submit" >IMPRIMIR</button>
+           
+        </form>
+  <button class="btn btn-default" ng-click="$close()" >Cancelar</button>
+     
+  </div>

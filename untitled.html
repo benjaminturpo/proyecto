@@ -1,0 +1,278 @@
+<div class="col-md-6">
+	<div class="shadow-z-0 cp-content">
+	<h4>Datos del proyecto</h4>
+	  <hr>
+		<form >
+		<!-- Step1 -->
+		<div class="step1" ng-show="datosProyecto.step == 1">
+			<h5><span class="fa fa-joomla"></span> {{datosProyecto.plan}}</h5>
+		   <div class="form-group">
+			<label for="">Nombre del Proyecto</label>
+			 <input type="" name="" class="form-control" ng-model="datosProyecto.proyecto.nombre" ng-blur="guardarProyecto()" required="">
+			</div>
+			<div class="form-group">
+			<label for="">Dirección a la que pertenece el Proyecto</label>
+			 <input type="text" ng-model="datosProyecto.direccion.nombre" uib-typeahead="dir.nombre for dir in direcciones | filter:$viewValue | limitTo:10" typeahead-on-select="setDireccion($item,$model)" class="form-control" required> 
+			</div>
+			<div class="form-group">
+			<label for="">Eje del Proyecto</label>
+			
+				<div class="radio" ng-repeat="eje in ejes" >
+				  <label>
+				    <input type="radio" name="ejes[]" id="ejes{{eje.id}}"  ng-click="setEje(eje)" required>
+				    {{eje.nombre}}
+				  </label>
+				</div>
+			</div>	
+			<div class="form-group">
+			<a ng-click="volver()" class="btn btn-warning" >Cancelar</a>
+				<button type="submit" class="btn btn-danger pull-right" ng-click="guardarStep(1)">Continuar</button>
+			</div>
+		</div>
+		<!-- Step2 -->
+		<div class="step2" ng-show="datosProyecto.step == 2">
+		<h5><span class="fa fa-object-ungroup"></span> Objetivo Estratégico del Proyecto <br><small>{{datosProyecto.eje.nombre}}</small> </h5> <strong>Seleccione un Objetivo Estratégico del listado o puede <a href="#" class="btn btn-xs btn-danger " ng-click="step2oe = !step2oe; datosProyecto.estrategico.nombre = undefined">Agregar nuevo objetivo Estratégico</a></strong>
+		<hr>
+		 <datatable-wrapper ng-show="!step2oe" >
+		<table class="table table-condensed table-striped table-bordered" datatable="ng"  dt-options="dtOptions" >
+					<thead>
+						<tr>
+							<th>Objetivo Estratégico</th>
+							<th>Acciones</th>
+						
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="estrategico in estrategicos">
+							<td>{{estrategico.nombre}}</td>
+							<td><a href="#" class="btn btn-primary btn-xs" ng-click="setEstrategico(estrategico)">Seleccionar</a></td>
+							
+								
+						</tr>
+					</tbody>
+				</table>
+			  </datatable-wrapper>
+			  <div ng-show="step2oe">
+			  <form  method="post" >
+			    <legend>Nuevo Objetivo</legend>
+			       <div class="form-group">
+			       	<label for="">Nombre</label>
+			       	<input type="text" class="form-control" ng-model="datosProyecto.estrategico.nombre">
+			       </div>
+					 <div class="form-group">
+			       	<label for="">Descripción</label>
+			       	<textarea name="" class="form-control" rows="3" cols="3" ng-model="datosProyecto.estrategico.descripcion" ></textarea>
+			       </div>
+				</form>	
+			  </div>
+	
+				<hr>
+			<div class="form-group" >
+			<button type="button" class="btn btn-warning " ng-click="datosProyecto.step = datosProyecto.step -1; datosProyecto.estrategico ={}">Regresar</button>
+				<button type="button" class="btn btn-danger pull-right" ng-click="guardarStep(2)">Continuar</button>
+
+					<button type="button" class="btn btn-warning pull-right" ng-show="step2oe" ng-click="step2oe = !step2oe; datosProyecto.estrategico.nombre = undefined">Cancelar</button>
+			</div>
+				
+		</div>
+		<!-- Step3 -->
+        <div class="step3" ng-show="datosProyecto.step == 3">
+		<h5><span class="fa fa-object-ungroup"></span> Objetivo Operativo del Proyecto <br><small><strong>Objetivo Estratégico: </strong> {{datosProyecto.estrategico.nombre}}</small> </h5> <strong ng-show="step3Oo" >Seleccione un Objetivo Operativo del listado o puede <a href="#" class="btn btn-xs btn-danger " ng-click="step3Oo = !step3Oo; datosProyecto.operativo.nombre = undefined; Mstep3Oo= false">Agregar nuevo objetivo Operativo</a></strong>
+		<hr>
+		 <datatable-wrapper ng-show="step3Oo" >
+		<table class="table table-condensed table-striped table-bordered" datatable="ng"  dt-options="dtOptions" >
+					<thead>
+						<tr>
+							<th>Objetivo Operativo</th>
+							<th>Acciones</th>
+						
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="operativo in operativos">
+							<td>{{operativo.nombre}}</td>
+							<td><a href="#" class="btn btn-primary btn-xs" ng-click="setOperativo(operativo)">Seleccionar</a></td>
+							
+								
+						</tr>
+					</tbody>
+				</table>
+			  </datatable-wrapper>
+			  <div ng-show="!step3Oo">
+			  <form  method="post" >
+			    <legend>Nuevo Objetivo</legend>
+			    <p ng-show="Mstep3Oo">El objetivo Estratégico seleccionado en el paso anterior no tiene ningún Objetivo Operativo. Para continuar Agregue un Objetivo Operativo.</p>
+			       <div class="form-group">
+			       	<label for="">Nombre</label>
+			       	<input type="text" class="form-control" ng-model="datosProyecto.operativo.nombre">
+			       </div>
+					 <div class="form-group">
+			       	<label for="">Descripción</label>
+			       	<textarea name="" class="form-control" rows="3" cols="3" ng-model="datosProyecto.operativo.descripcion" ></textarea>
+			       </div>
+				</form>	
+			  </div>
+	
+				<hr>
+			<div class="form-group" >
+			<button type="button" class="btn btn-warning " ng-click="datosProyecto.step = datosProyecto.step -1; datosProyecto.operativo={}">Regresar</button>
+				<button type="button" class="btn btn-danger pull-right" ng-click="guardarStep(3)">Continuar</button>
+					<button type="button" class="btn btn-warning pull-right" ng-show="!step3Oo" ng-click="step3Oo = !step3Oo; datosProyecto.operativo.nombre = undefined">Cancelar</button>
+			</div>
+				
+		</div>
+		<!--  -->
+			<!-- Step4 -->
+        <div class="step4" ng-show="datosProyecto.step == 4">
+        <h5>Agregar Nuevo Indicador al Proyecto</h5>
+            <form class="row" method="POST" ng-submit="guardarIndicador('continuar')">
+                        
+                    
+                              <div class="form-group col-md-12">
+
+                                  <label for="">Nombre</label>
+                                  <input type="text" class="form-control" name="nombre" ng-model="indicador.nombre" required="">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="">Meta</label>
+                                  <input type="number" class="form-control" name="meta" step="any" min="0" ng-model="indicador.meta" ng-change="controlarComa(indicador.meta)" required="">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="">Indicador</label>
+                                  <input type="number" class="form-control" name="indicador" step="any" min="0" ng-model="indicador.indicador" required="">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="">Vigencia</label>
+                                  <input type="date" class="form-control" name="vigencia" ng-model="indicador.vigencia" required="">
+                              </div>
+                            
+                        
+                          
+                          <div class="clearfix col-md-12">
+                          <button type="button" class="btn btn-warning " ng-click="datosProyecto.step = datosProyecto.step -1; datosProyecto.operativo={}">Regresar</button>
+                               <button class="btn btn-danger pull-right"  type="submit">Continuar
+                             
+                              </button>
+                              <button class="btn btn-info pull-right"  ng-click="guardarIndicador('agregar')" type="">Agregar Indicador
+                                 
+                              </button>
+                          </div>
+                          </form>
+        </div>
+        <!-- step 5 -->
+    <div class="step5" ng-show="datosProyecto.step == 5">
+        <h5>Agregar Acciones al Proyecto</h5>
+            <form class="row" method="POST" ng-submit="guardarAccion()">
+                        
+                           
+                              <div class="form-group col-md-12">
+                                  <label for="">Nombre</label>
+                                  <input type="text" class="form-control" name="nombre" ng-model="acciones.nombre" required="">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="">Fecha de Inicio</label>
+                                  <input type="date" class="form-control" name="fecha_inicio" ng-model="acciones.fecha_inicio" required="">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="">Fecha de Fin</label>
+                                  <input type="date" class="form-control" name="fecha_fin" ng-model="acciones.fecha_fin" required="">
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <label for="">Ponderación</label>
+                                  <select class="form-control" name="prioridad" ng-model="acciones.prioridad" required="">
+                                  <option value="">Seleccione</option>
+                                  <option value="1">Máxima</option>
+                                  <option value="2">Alta</option>
+                                  <option value="3">Media</option>
+                                  <option value="4">Baja</option>
+                                  </select>
+                              </div>
+                               <div class="form-group col-md-6">
+                                  <label for="">Estado</label>
+                                  <select class="form-control" name="prioridad" ng-model="acciones.estado" required="">
+                                  <option value="">Seleccione</option>
+                                  <option value="0">No iniciado</option>
+                                  <option value="1">En Progreso</option>
+                                  <option value="2">Completado</option>
+                                  <option value="3">Pausado</option>
+                                  <option value="4">Cancelado</option>
+                                  <!-- <option value="5">Finalizado</option> -->
+                                  </select>
+                              </div>
+                                 <div class="form-group col-md-12">
+                                  <label for="">Detalle</label>
+                                  <textarea name="detalle" ng-model="acciones.detalle" class="form-control" rows="3" cols="3" required=""></textarea> 
+                              </div>
+                            
+                      
+                          
+                          <div class="clearfix col-md-12">
+                          <button type="button" class="btn btn-warning " ng-click="datosProyecto.step = datosProyecto.step -1; datosProyecto.operativo={}">Regresar</button>
+                               <button class="btn btn-danger pull-right"  type="submit">Continuar
+                             
+                              </button>
+                            
+                          </div>
+                          </form>
+
+        </div>
+
+        <!--  -->
+        <!-- step 5 -->
+    <div class="step6" ng-show="datosProyecto.step == 6">
+        <h5>Proyecto Guardado correctamente</h5>
+        
+                          <button type="button" class="btn btn-warning " ng-click="datosProyecto.step = datosProyecto.step -1; datosProyecto.operativo={}">Regresar</button>
+                          <a href="/admin/proyectos" class="btn btn-info"  type="button">Listado de Proyectos
+                             
+                              </a>
+                               <button class="btn btn-danger "  type="button" ng-click="cargarOtroProyecto()">Cargar Otro proyecto
+                             
+                              </button>
+                         
+
+        </div>
+
+        <!--  -->
+		
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="shadow-z-0 cp-content">
+	<h4>Vista previa</h4>
+	<hr>
+	<ul class="list-unstyled">
+		<li>
+		<a href="#" ng-click="isCollapsed = !isCollapsed"><span class="fa fa-cubes"></span> {{datosProyecto.proyecto.nombre}}</a>
+		<ul uib-collapse="isCollapsed" >
+				<li><a href=""><span class="fa fa-joomla"></span> {{datosProyecto.plan}}</a></li>
+				<li><a href=""><span class="fa fa-bookmark"></span> {{datosProyecto.direccion.nombre}}</a></li>
+				<li><a href=""><span class="fa fa-list"></span> {{datosProyecto.eje.nombre}}</a></li>
+				<li><a href=""><span class="fa fa-object-ungroup"></span> {{datosProyecto.estrategico.nombre}}</a></li>
+				<li><a href=""><span class="fa fa-object-group"></span> {{datosProyecto.operativo.nombre}}</a></li>
+				<li>
+				     <a href="">indicadores</a>
+				     <ul>
+				     	<li ng-repeat="i in datosProyecto.indicadores"><a href="">{{i.nombre}}</a></li>
+				     	
+				     </ul>
+				</li>
+				<li>
+				     <a href="">Acciones</a>
+				     <ul>
+				   	<li ng-repeat="a in datosProyecto.acciones"><a href="">{{a.nombre}}</a></li>
+				     </ul>
+				</li>
+			</ul>	
+		</li>
+	</ul>
+	    <div class="np-proyecto">
+	    	<a href="#">{{proyecto.nombre}}</a>
+	    </div>
+		<div class="np-plan"></div>
+		<div class="np-eje"></div>
+		<div class="np-estrategico"></div>
+		<div class="np-operativo"></div>
+		<div class="np-proyecto"></div>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<div class="navbar navbar-default " style="height: 110px;">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-warning-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="javascript:void(0)"><img src="img/brand.png" alt="" class="img-responsive brand-img" style="width: 300px"></a>
+      </div>
+      <div class="navbar-collapse collapse navbar-warning-collapse">
+          <ul class="nav navbar-nav">
+             <li ng-class="{activeMenu: $route.current.activeMenu == 'lecturas'}" class="dash-box">
+
+            <a href="#!/lecturas" class="btn btn-fase-0-menu " role="button" ng-click="activeMenu='lecturas'" ng-class="{ 'btn-info' : $route.current.activeMenu  == 'lecturas' }"  >
+                 <div class="fa fa-bar-chart fa-3x fanew" style="margin: 0 !important; margin-left: -6px !important;  padding: 10px 0px !important;"></div> 
+                <div id="box_2" class="icon-label"> visor de <br> Lecturas</div>
+                
+              </a>
+
+             </li>
+                     <li ng-class="{activeMenu: $route.current.activeMenu == 'registros'}" class="dash-box">
+
+            <a href="#!/registros" class="btn btn-fase-0-menu " role="button" ng-click="activeMenu='registros'" ng-class="{ 'btn-info' : $route.current.activeMenu  == 'registros' }"  >
+                 <div class="fa fa-history fa-3x fanew" style="margin: 0 !important;  padding: 10px 0px !important;"></div> 
+                <div id="box_2" class="icon-label"> Registros <br> Históricos</div>
+                
+              </a>
+
+             </li>
+
+               <li ng-class="{activeMenu: $route.current.activeMenu == 'sensores'}" class="dash-box">
+
+            <a href="#!/sensores" class="btn btn-fase-0-menu " role="button" ng-click="activeMenu='sensores'" ng-class="{ 'btn-info' : $route.current.activeMenu  == 'sensores' }"  >
+                 <div class="fa fa-cog fa-3x fanew" style="margin: 0 !important;  padding: 10px 0px !important;"></div> 
+                <div id="box_2" class="icon-label"> Configurar <br> Sensores</div>
+                
+              </a>
+
+             </li>
+            
+          </ul>
+     
+ 
+          <ul class="nav navbar-nav navbar-right">
+
+              <li >
+                <a  href="#!/" class="btn btn-warning " ng-click="salir()">
+
+                <i class="fa fa-sign-out fa-3x fanew" style="margin: 0 !important;  padding: 10px 0px !important;" aria-hidden="true"></i> 
+                 <div id="box_2" class="icon-label"> Salir </div>
+                
+     </a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+
+	<div class="container" >
+				<div class="row" >
+				<div class="col-md-1" style="padding:0;">
+				</div>
+					<div class="col-md-6 col-sm-5" style="padding:0;">
+					<img src="img/ig.png" class="img-responsive">
+				</div>
+					<div class="col-md-4 col-sm-6" style="padding:0;">
+					<img class="img-responsive" src="img/logon.png">
+						<div class="card card-signup">
+							<form class="form" method="POST"   ng-submit="ingresar(user)">
+								<div class="">
+									<h4 class="text-center">Por favor ingrese sus datos para continuar</h4>
+									
+								</div>
+								<p class="text-divider"></p>
+								<div class="content" >
+	                              <span class="login-error" ng-show="error">Datos incorrectos</span>
+							
+
+									
+									<div class="form-group">
+										<label for="">Constraseña</label>
+										<input type="password" placeholder="Contraseña" class="form-control"  name="dni" id="dni" ng-model="user.pass" required="">
+									</div>
+
+									<!-- If you want to add a checkbox to this form, uncomment this code
+
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" name="optionsCheckboxes" checked>
+											Subscribe to newsletter
+										</label>
+									</div> -->
+								</div>
+								<div class="footer text-center">
+									<button type="submit" class="btn  btn-info ">Ingresar</button>
+								</div>
+							</form>
+						</div>
+
+							<img class="img-responsive" src="img/facet.png">
+					</div> 
+	<div class="col-md-1" style="padding:0;">
+				</div>
+			
+			
