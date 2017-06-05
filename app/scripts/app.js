@@ -27,7 +27,8 @@
       $httpProvider.defaults.headers.patch = {};
       $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
       
-
+ // works with arrive js
+    $.material.init();
 
     $routeProvider
       .when('/', {

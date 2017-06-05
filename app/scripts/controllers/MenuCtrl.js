@@ -38,6 +38,8 @@
  
     if(path === '/lecturas' || path === '/registros' || path === '/sensores' ){
 $scope.menuToggle = 1;    
+    }else{
+      $scope.menuToggle = 0;   
     }
         // 
 

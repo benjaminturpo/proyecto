@@ -21,7 +21,7 @@
           {
              
          $rootScope.menuToggle = 1;  
-               $location.path('/admin/lecturas');
+               $location.path('/lecturas');
 
           }
           else

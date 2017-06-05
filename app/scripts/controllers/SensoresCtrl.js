@@ -7,7 +7,7 @@
     .controller('SensoresCtrl', SensoresCtrl);
 
 
-  function SensoresCtrl($scope, $route,$rootScope, $window, toastr, DTOptionsBuilder,$interval) {
+  function SensoresCtrl($scope, $route,$rootScope, $window, toastr, DTOptionsBuilder,$interval, $timeout) {
    
        $scope.dtOptions = DTOptionsBuilder.newOptions()
                       .withBootstrap();
@@ -68,6 +68,28 @@ $scope.co2 = {
     showTicks: 10
     }
 };
+
+$scope.chkBtn = 'Comprobar conexión';
+ $scope.clickProgressBtn = function(style) {
+          $scope.comprobR = true;
+          $timeout(function() {
+$scope.chkBtn = 'Comprobando conexión';
+
+            $scope.comprobR = 0.1 ;
+          }, 500);
+          $timeout(function() {
+            $scope.comprobR += 0.1;
+          }, 1000);
+          $timeout(function() {
+            $scope.comprobR += 0.1;
+          }, 1500);
+          $timeout(function() {
+            $scope.comprobR = false;
+$scope.chkBtn = 'Conexión establecida';
+
+          }, 2000);
+        };
+
   }
 
 })();
