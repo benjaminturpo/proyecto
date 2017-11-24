@@ -17,7 +17,7 @@
    
       var p =  $scope.user.pass;
         
-          if(p === 'hongosj')
+          if(p === 'hongos')
           {
              
          $rootScope.menuToggle = 1;  
