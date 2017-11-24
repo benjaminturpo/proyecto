@@ -1,0 +1,177 @@
+// Libraries
+#include <SPI.h>
+#include <Ethernet.h>
+#include <aREST.h>
+#include "DHT.h"
+#include "cactus_io_DHT22.h"
+
+/*********************Cinfiguracion de la red ************************************/
+
+
+// Enter a MAC address for your controller below.
+byte mac[] = { 0x90, 0xA2, 0xDA, 0x0E, 0xFE, 0x40 };
+
+
+//configuracion de red de shield
+IPAddress ip(192,168,1,100);
+IPAddress gateway = { 192, 168, 1, 1 }; 
+
+// Ethernet server
+EthernetServer server(8000);
+
+// Create aREST instance
+aREST rest = aREST();
+
+/*********************configuracion de los sensores**************************/
+// DHT 11 sensor
+#define DHTPIN 7
+#define DHTTYPE1 DHT11
+#define DHTTYPE2 DHT22
+
+// DHT 22 
+#define DHT22_PIN 2
+// Note: If you are using a board with a faster processor than 16MHz then you need
+// to declare an instance of the DHT22 using 
+// DHT22 dht(DHT22_DATA_PIN, 30);
+// The additional parameter, in this case here is 30 is used to increase the number of
+// cycles transitioning between bits on the data and clock lines. For the
+// Arduino boards that run at 84MHz the value of 30 should be about right.
+
+
+
+// DHT sensor
+DHT dht11 (DHTPIN, DHTTYPE1);
+DHT dht22 (DHT22_PIN, DHTTYPE2);
+
+//variables que se leeran por la api
+int temp11;
+int hum11;
+
+int temp22;
+int hum22;
+
+int mq135=0;
+
+//limites para la calibracion de gas particulas ppm
+int O2 =12;
+int CO2=11;
+int gas=10;
+
+//led
+const int AMARILLO = 30;
+const int ROJO = 31;
+const int VERDE = 32;
+
+
+void setup(void)
+{
+  Serial.begin(115200);
+   while (!Serial) {
+    ; // espera el usb
+  }
+
+
+ pinMode(ROJO, OUTPUT);    
+ pinMode(AMARILLO, OUTPUT); 
+ pinMode(VERDE, OUTPUT); 
+  // start the Ethernet connection and the server:
+  Ethernet.begin(mac, ip);
+  server.begin();
+  Serial.print("ip ");
+  Serial.println(Ethernet.localIP());
+//iniciar variables
+  rest.variable("temp11",&temp11);
+  rest.variable("hum11",&hum11);
+  rest.variable("temp22",&temp22);
+  rest.variable("hum22",&hum22);
+  
+/*****************EJEMPLO PARA EL GAS y los LED *********************************/
+  rest.variable("mq135",&mq135);
+
+ pinMode(O2,OUTPUT);
+  pinMode(CO2,OUTPUT);
+  pinMode(gas,OUTPUT);
+  
+  digitalWrite(O2,LOW);
+  digitalWrite(CO2,LOW);
+  digitalWrite(gas,LOW);
+
+
+
+
+
+  
+/********************FIN EJEMPLO GAS *********************************************/  
+  // Give name and ID to device
+  rest.set_id("1");
+  char tmp[] = "temperaturas";
+  rest.set_name(tmp);
+ 
+
+}
+
+void loop() {
+
+digitalWrite(VERDE,HIGH); // apagar el LED
+  //Obtener mediciones
+  hum11 = (int)dht11.readHumidity();
+  hum22 = (int)dht22.readHumidity();
+
+  temp11 = (int)dht11.readTemperature();
+  temp22 = (int)dht22.readTemperature();
+
+  //Obtener lectura analogo 0 
+   mq135 = analogRead(0);   
+/**********************EJEMPLO GAS *****************************/
+   Serial.println(mq135, DEC);
+  Serial.println(" ppm");
+  delay(250); 
+  //O2 
+  if(mq135<=55)
+  {
+  Serial.println("O2 normal");
+  digitalWrite(O2,LOW);
+  digitalWrite(CO2,LOW);
+  digitalWrite(gas,LOW);
+  delay(50);
+  
+  }
+//O2 con dioxido humano
+  if(mq135>=56 && mq135<=65)
+  {
+  Serial.println("O2 con un poco de CO2");
+  digitalWrite(O2,HIGH);
+  digitalWrite(CO2,LOW);
+  digitalWrite(gas,LOW);
+  delay(50);
+  }
+ //dioxido de carbono
+  if(mq135>=74 && mq135<=350)
+  {
+  Serial.println(" dioxido de carbono CO2");
+  digitalWrite(O2,LOW);
+  digitalWrite(CO2,HIGH);
+  digitalWrite(gas,LOW);
+  delay(50);
+  }
+  //gas propano y butano
+  if(mq135>=400)
+  {
+  Serial.println("propano butano");
+  digitalWrite(O2,LOW);
+  digitalWrite(CO2,LOW);
+  digitalWrite(gas,HIGH);
+  delay(50);
+  }
+
+
+
+
+/***************************************************************/
+   
+  // listar clientes
+  EthernetClient client = server.available();
+  rest.handle(client);
+
+ delay(4000);
+}
