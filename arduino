@@ -61,8 +61,8 @@ int gas=10;
 const int AMARILLO = 30;
 const int ROJO = 31;
 const int VERDE = 32;
-
-
+const int COOLER = 36;
+const int RELE = 39;
 void setup(void)
 {
   Serial.begin(115200);
@@ -74,6 +74,8 @@ void setup(void)
  pinMode(ROJO, OUTPUT);    
  pinMode(AMARILLO, OUTPUT); 
  pinMode(VERDE, OUTPUT); 
+  pinMode(COOLER, OUTPUT); 
+   pinMode(RELE, OUTPUT); 
   // start the Ethernet connection and the server:
   Ethernet.begin(mac, ip);
   server.begin();
@@ -112,7 +114,7 @@ void setup(void)
 
 void loop() {
 
-digitalWrite(VERDE,HIGH); // apagar el LED
+
   //Obtener mediciones
   hum11 = (int)dht11.readHumidity();
   hum22 = (int)dht22.readHumidity();
