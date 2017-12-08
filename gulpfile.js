@@ -22,19 +22,26 @@ var gulp      = require('gulp'),
     cachebust = require('gulp-cache-bust'),
     angularFilesort = require('gulp-angular-filesort'),
     templateCache = require('gulp-angular-templatecache'),
+    browserSync = require('browser-sync').create(),
     historyApiFallback = require('connect-history-api-fallback');
    
 // Servidor web de desarrollo
+// gulp.task('server', function() {
+//   connect.server({
+//     root: './app',
+//     hostname: '0.0.0.0',
+//     port: 8080,
+//     livereload: true,
+//    middleware: function (connect, opt) { return [ historyApiFallback({}) ]; }
+//   });
+// });
 gulp.task('server', function() {
-  connect.server({
-    root: './app',
-    hostname: '0.0.0.0',
-    port: 8080,
-    livereload: true,
-   middleware: function (connect, opt) { return [ historyApiFallback({}) ]; }
-  });
+    browserSync.init({
+      server: {
+            baseDir: './app',
+        }
+    });
 });
-
 // Servidor web para probar el entorno de producción
 gulp.task('server-dist', function() {
   connect.server({
@@ -219,6 +226,6 @@ gulp.task('watch', function() {
   gulp.watch(['./bower.json'], ['wiredep']);
 });
 
-gulp.task('default', ['server', 'templates', 'inject', 'wiredep', 'watch','jshint','css']);
+gulp.task('default', ['server', 'templates', 'inject', 'wiredep', 'watch','css']);
 gulp.task('build', ['copy','imagenes']);
 gulp.task('compress', ['compressJS','imagenes','cacheBuster','minify-css']);

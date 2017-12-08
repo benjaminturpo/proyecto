@@ -9,9 +9,8 @@
 
   function LecturasCtrl($scope, $route,$rootScope, $window, toastr, DTOptionsBuilder,$interval,Address,Arduino) {
    var device = new Device(Address);
-    device.digitalWrite(31, 1);
-
-
+  
+       
     $scope.dtOptions = DTOptionsBuilder.newOptions()
                       .withBootstrap();
                       // .withOption('order', [1, 'desc']);
@@ -39,24 +38,47 @@ $scope.series = ['Series A'];
        pin: 36,
        status: 0
     }
-    $scope.getNewData = function(){
-         Arduino.getData().then(function(res){
+   //  $scope.getNewData = function(){
+   //       Arduino.getData().then(function(res){
     
-    $scope.datos = res.data.variables
-    console.log('arduino', $scope.datos)
-   })    
-    }
+   //  $scope.datos = res.data.variables
+   //  console.log('arduino', $scope.datos)
+   // })    
+   //  }
   
- 
+ $scope.options = {
+      scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    displayFormats: {
+                        quarter: 'MMM YYYY'
+                    },
+                    unit: 'second',
+                    unitStepSize: 5
+                },
+                distribution: 'linear'
+            }]
+        }
+  };
    $scope.temp = [];
-   
-   function addTemp(){
-    Arduino.getData().then(function(res){
+   $scope.hum = [];
+   $scope.gas = [];
+   $scope.labels = [];
+   function getVal(){
+       device.getVariable('variables', function(res){
+             console.log(res.variables)
+    $scope.temp.push(res.variables.temp22)
+    $scope.hum.push(res.variables.hum22)
+    $scope.gas.push(res.variables.mq135)
+
+
+        })
+    // Arduino.getData().then(function(res){
     
-    $scope.temp.push(res.data.variables.temp22)
-    console.log('nueva temo', $scope.temp)
-    $scope.labels = $scope.temp
-   }) 
+    // console.log('nueva temo', $scope.temp)
+    
+   // }) 
    }
   
 
@@ -71,11 +93,15 @@ $scope.series = ['Series A'];
           pin.text = 'ENCENDER'
     }
    }
-  //   $interval( function(){ 
-
-  //   addTemp();
+   $scope.time = moment(new Date());
+    $interval( function(){ 
+     $scope.inter = 5000;
+    getVal();
     
-  // }, 5000);
+   $scope.time.add($scope.inter)
+    $scope.labels.push($scope.time)
+    
+  }, $scope.inter);
 
   }
 
