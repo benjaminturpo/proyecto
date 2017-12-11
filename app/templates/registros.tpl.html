@@ -16,10 +16,20 @@
                 </thead>
 
                 <tbody>
-                    <tr ng-repeat="l in lecturas">
-                           <td></td>	
-                           <td></td>	
-                           <td></td>	
+                    <tr ng-repeat="l in temp">
+                           <td>{{l.x | amDateFormat:'LLL'}}</td>	
+                           <td>Temperatura</td>	
+                           <td>{{l.y}} °C</td>	
+                    </tr>
+                    <tr ng-repeat="h in hum">
+                           <td>{{h.x | amDateFormat:'LLL'}}</td>  
+                           <td>Humedad</td> 
+                           <td>{{h.y}} %</td> 
+                    </tr>
+                     <tr ng-repeat="g in gas">
+                           <td>{{g.x | amDateFormat:'LLL'}}</td>  
+                           <td>CO2</td> 
+                           <td>{{g.y}} ppm</td> 
                     </tr>
                 </tbody>
     	</table>

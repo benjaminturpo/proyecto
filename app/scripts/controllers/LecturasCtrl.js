@@ -9,6 +9,7 @@
 
   function LecturasCtrl($scope, $route,$rootScope, $window, toastr, DTOptionsBuilder,$interval,Address,Arduino) {
    var device = new Device(Address);
+          // device.digitalWrite(31, 0);
   
        
     $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -51,26 +52,27 @@ $scope.series = ['Series A'];
             xAxes: [{
                 type: 'time',
                 time: {
-                    displayFormats: {
-                        quarter: 'MMM YYYY'
-                    },
-                    unit: 'second',
-                    unitStepSize: 5
+                    format: "HH:mm",
+                    unit: 'minute',
+                    unitStepSize: 2,
+                    
                 },
                 distribution: 'linear'
             }]
         }
   };
-   $scope.temp = [];
-   $scope.hum = [];
-   $scope.gas = [];
+
+   $rootScope.temp = [];
+   $rootScope.hum = [];
+   $rootScope.gas = [];
    $scope.labels = [];
    function getVal(){
+    $scope.time = moment(new Date());
        device.getVariable('variables', function(res){
              console.log(res.variables)
-    $scope.temp.push(res.variables.temp22)
-    $scope.hum.push(res.variables.hum22)
-    $scope.gas.push(res.variables.mq135)
+    $rootScope.temp.push({x: $scope.time,y:res.variables.temp22})
+    $rootScope.hum.push({x: $scope.time,y:res.variables.hum22})
+    $rootScope.gas.push({x: $scope.time,y:res.variables.mq135})
 
 
         })
@@ -82,26 +84,37 @@ $scope.series = ['Series A'];
    }
   
 
-   $scope.encender = function(pin){
-    if(pin.status === 0){
+   $rootScope.encender = function(pin){
+   // var device = new Device(Address);
+  $interval.cancel()
+   $rootScope.inter = 0;
+
+     device.digitalRead(pin.pin, function(data) {
+      var estado = data.return_value
+        console.log('lectura del puerto',data)
+        console.log('accion', pin)
+    if(estado === 0){
           device.digitalWrite(pin.pin, 1);
           pin.text = 'APAGAR'
     }
     
-   if(pin.status === 1){
+   if(estado === 1){
           device.digitalWrite(pin.pin, 0);
           pin.text = 'ENCENDER'
     }
+      });
+    
    }
-   $scope.time = moment(new Date());
+   // $scope.time = moment(new Date());
     $interval( function(){ 
-     $scope.inter = 5000;
+   $rootScope.inter = 100000;
+     
     getVal();
+   // $scope.time.add($rootScope.inter)
+    // $scope.labels.push($scope.time)
+    // $scope.labels =  $scope.temp
     
-   $scope.time.add($scope.inter)
-    $scope.labels.push($scope.time)
-    
-  }, $scope.inter);
+  }, $rootScope.inter);
 
   }
 

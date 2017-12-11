@@ -45,7 +45,7 @@
 
      .when('/registros', {
         templateUrl: 'templates/registros.tpl.html',
-        controller: 'RegistrosCtrl',
+        controller: 'LecturasCtrl',
         activeMenu: 'registros'
       })
     .when('/sensores', {
