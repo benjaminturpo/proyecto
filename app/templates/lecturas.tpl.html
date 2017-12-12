@@ -26,10 +26,10 @@
 			<div class="col-md-6" style="margin-top:10px">
 				<div class="shadow-z-0 admin-content-form">
 					<h3 class="dm-h3"><span class="fa fa-tasks"></span> Activar Manualmente </h3>
-				<button ng-click="encender(led.rojo)" class="btn btn-block " style="background-color: #F44336">{{led.rojo.text}}</button>
-				<button ng-click="encender(led.ama)" class="btn btn-block btn-warning">{{led.ama.text}}</button>
-				<button ng-click="encender(led.verde)" class="btn btn-block btn-success">{{led.verde.text}}</button>
-				<button ng-click="encender(led.azul)" class="btn btn-block " style="background-color: #2196F3">{{led.azul.text}}</button>
+				<button ng-click="encender(led.rojo)" ladda="led.rojo.status && led.status" class="btn btn-block " style="background-color: #F44336">{{led.rojo.text}}</button>
+				<button ng-click="encender(led.ama)" ladda="led.ama.status && led.status" class="btn btn-block btn-warning">{{led.ama.text}}</button>
+				<button ng-click="encender(led.verde)" ladda="led.verde.status && led.status" class="btn btn-block btn-success">{{led.verde.text}}</button>
+				<button ng-click="encender(led.azul)" ladda="led.azul.status && led.status" class="btn btn-block " style="background-color: #2196F3">{{led.azul.text}}</button>
 				
 		    </div>
 		    </div>

@@ -22,8 +22,11 @@
     return DateSerializer;
 }
 function Arduino(Address, $http){
+  // var device = new Device(Address);
   return{
-    getData:getData
+    getData:getData,
+    setPin:setPin,
+    leerPin:leerPin
   }
   function getData(){
       return $http({
@@ -37,8 +40,42 @@ function Arduino(Address, $http){
       });
   }
 
+  function setPin(pin, state){
+      return $http({
+        method: 'GET',
+        url: 'http://' + Address  + '/digital/' + pin + '/' + state,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      }).then(function(res) {
+        return res.data;
+      });
 
-}
+
+
+      }
+
+  function leerPin(pin){
+      return $http({
+        method: 'GET',
+        url: 'http://' + Address  + '/digital/' + pin,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      }).then(function(res) {
+        return res.data;
+      });
+
+
+
+      }
+
+
+
+  }
+
+
+
 
   angular
   .module('tsl.services', ['ngResource'])
