@@ -77,10 +77,22 @@ void setup(void)
   pinMode(COOLER, OUTPUT); 
    pinMode(RELE, OUTPUT); 
   // start the Ethernet connection and the server:
-  Ethernet.begin(mac, ip);
+  
+  // Start the Ethernet connection and the server
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // no point in carrying on, so do nothing forevermore:
+    // try to congifure using IP address instead of DHCP:
+    Ethernet.begin(mac, ip);
+  }
   server.begin();
-  Serial.print("ip ");
+  Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
+  //viejo
+  //Ethernet.begin(mac, ip);
+  //server.begin();
+  //Serial.print("ip ");
+  //Serial.println(Ethernet.localIP());
 //iniciar variables
   rest.variable("temp11",&temp11);
   rest.variable("hum11",&hum11);
